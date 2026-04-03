@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ПрайсПорт — совместный интернет-маркетинг и лидогенерация</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -637,24 +640,71 @@
             }
         }
 
+        .results .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #999;
+        }
+
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
         @media (max-width: 768px) {
+            .hero {
+                padding: 80px 0 100px;
+            }
+
             .hero h1 {
-                font-size: 32px;
+                font-size: 36px;
             }
 
             .hero p {
-                font-size: 18px;
+                font-size: 17px;
             }
 
             .section-title {
                 font-size: 32px;
             }
 
+            .section-subtitle {
+                font-size: 16px;
+            }
+
             .features-grid,
             .steps,
             .results-grid,
-            .pricing-grid {
+            .pricing-grid,
+            .partners-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .feature-card,
+            .partner-card {
+                padding: 35px;
+            }
+
+            .calculator-form,
+            .contact-form-container {
+                padding: 35px;
+            }
+
+            .header-content {
+                gap: 15px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .auth-button {
+                padding: 10px 20px;
+                font-size: 14px;
             }
         }
 
@@ -662,18 +712,20 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            width: 50px;
-            height: 50px;
+            width: 56px;
+            height: 56px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-radius: 50%;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
+            transition: all 0.3s ease;
             z-index: 999;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            font-size: 20px;
         }
 
         .scroll-to-top.visible {
@@ -681,12 +733,13 @@
         }
 
         .scroll-to-top:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
         }
 
         .partners {
-            padding: 80px 0;
-            background: #f9f9f9;
+            padding: 100px 0;
+            background: #fafbfc;
         }
 
         .partners-grid {
@@ -698,36 +751,49 @@
 
         .partner-card {
             background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
             text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .partner-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.1);
         }
 
         .partner-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #667eea;
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+            font-weight: 600;
         }
 
         .partner-card p {
-            color: #666;
+            color: #5a5a5a;
             line-height: 1.8;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            font-size: 15px;
         }
 
         .partner-link {
             display: inline-block;
-            padding: 10px 25px;
-            background: #667eea;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-decoration: none;
-            border-radius: 20px;
-            transition: transform 0.3s;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
         }
 
         .partner-link:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
         }
     </style>
 </head>
@@ -736,7 +802,7 @@
         <div class="container">
             <div class="header-content">
                 <a href="#" class="logo">ПрайсПорт</a>
-                <div class="auth-placeholder">Авторизация (в разработке)</div>
+                <button class="auth-button">Войти</button>
             </div>
         </div>
     </header>
@@ -893,11 +959,12 @@
             <h2 class="section-title">Простые шаги для начала работы</h2>
             <p class="section-subtitle">Оставьте телефон и ссылку на сайт вашего магазина.<br>В течение 24 часов мы свяжемся с вами для подключения магазина к ПрайсПорт</p>
             <div class="contact-form-container">
-                <form id="contactForm">
-                    <input type="tel" id="phone" placeholder="Номер телефона *" required>
-                    <input type="url" id="website" placeholder="Ссылка на сайт магазина" required>
+                <form action="https://formspree.io/f/xdapwayg" method="POST" id="contactForm">
+                    <input type="tel" name="phone" id="phone" placeholder="Номер телефона *" required>
+                    <input type="url" name="website" id="website" placeholder="Ссылка на сайт магазина *" required>
+                    <textarea name="message" id="message" placeholder="Дополнительная информация (необязательно)"></textarea>
                     <div class="checkbox-group">
-                        <input type="checkbox" id="consent" required>
+                        <input type="checkbox" id="consent" name="consent" required>
                         <label for="consent">Я согласен на обработку персональных данных</label>
                     </div>
                     <button type="submit" class="submit-button">Подключиться</button>
