@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ПрайсПорт — совместный интернет-маркетинг и лидогенерация</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            overflow-x: hidden;
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .auth-button {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 0 140px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 24px;
+            animation: fadeInUp 1s ease;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s backwards;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 48px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s backwards;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+            background: #f8f8f8;
+        }
+
+        .promo-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            padding: 10px 24px;
+            border-radius: 30px;
+            margin-bottom: 30px;
+            font-size: 15px;
+            animation: fadeInUp 1s ease 0.1s backwards;
+            border: 1px solid rgba(255,255,255,0.3);
+            font-weight: 500;
+        }
+
+        .features {
+            padding: 100px 0;
+            background: #fafbfc;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 45px;
+            border-radius: 20px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 52px;
+            margin-bottom: 24px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: #5a5a5a;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 44px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #5a5a5a;
+            margin-bottom: 40px;
+            line-height: 1.7;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .how-it-works {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px;
+            position: relative;
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .step h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .step p {
+            color: #5a5a5a;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .results {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23dots)"/></svg>');
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .result-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .result-number {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .result-text {
+            font-size: 16px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .calculator {
+            padding: 100px 0;
+            background: #fafbfc;
+        }
+
+        .calculator-form {
+            max-width: 600px;
+            margin: 60px auto 0;
+            background: white;
+            padding: 50px;
+            border-radius: 24px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #1a1a1a;
+            font-size: 15px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 16px 18px;
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .calculator-result {
+            margin-top: 30px;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .calculator-result h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .calculator-result .big-number {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .pricing {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid #e8e8e8;
+            border-radius: 24px;
+            padding: 45px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.15);
+            border-color: #667eea;
+        }
+
+        .pricing-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .pricing-card .price {
+            font-size: 52px;
+            font-weight: 700;
+            color: #667eea;
+            margin: 20px 0;
+            letter-spacing: -1px;
+        }
+
+        .pricing-card .price-unit {
+            font-size: 17px;
+            color: #5a5a5a;
+            font-weight: 500;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-card ul li {
+            padding: 12px 0;
+            color: #5a5a5a;
+            border-bottom: 1px solid #f5f5f5;
+            font-size: 15px;
+        }
+
+        .pricing-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-card ul li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: 700;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .contact-form {
+            padding: 100px 0;
+            background: #fafbfc;
+        }
+
+        .contact-form-container {
+            max-width: 600px;
+            margin: 60px auto 0;
+            background: white;
+            padding: 50px;
+            border-radius: 24px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .contact-form-container input,
+        .contact-form-container textarea {
+            width: 100%;
+            padding: 16px 18px;
+            margin-bottom: 20px;
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+
+        .contact-form-container input:focus,
+        .contact-form-container textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .contact-form-container textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            gap: 12px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin: 4px 0 0 0;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .checkbox-group label {
+            font-size: 14px;
+            color: #5a5a5a;
+            line-height: 1.6;
+            cursor: pointer;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        .faq {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .faq-item {
+            background: #fafbfc;
+            margin-bottom: 16px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e8e8e8;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: #d0d0d0;
+        }
+
+        .faq-question {
+            padding: 28px 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 17px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            color: #1a1a1a;
+        }
+
+        .faq-question:hover {
+            background: #f5f5f5;
+        }
+
+        .faq-question::after {
+            content: "+";
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            transition: transform 0.3s;
+        }
+
+        .faq-question.active::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 30px;
+            color: #5a5a5a;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+            padding: 0 30px 28px;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: rgba(255,255,255,0.8);
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #8a9ef5;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .results .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #999;
+        }
+
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 80px 0 100px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .section-subtitle {
+                font-size: 16px;
+            }
+
+            .features-grid,
+            .steps,
+            .results-grid,
+            .pricing-grid,
+            .partners-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card,
+            .partner-card {
+                padding: 35px;
+            }
+
+            .calculator-form,
+            .contact-form-container {
+                padding: 35px;
+            }
+
+            .header-content {
+                gap: 15px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .auth-button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            font-size: 20px;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .partners {
+            padding: 100px 0;
+            background: #fafbfc;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .partner-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .partner-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.1);
+        }
+
+        .partner-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .partner-card p {
+            color: #5a5a5a;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-size: 15px;
+        }
+
+        .partner-link {
+            display: inline-block;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .partner-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">ПрайсПорт</a>
+                <button class="auth-button">Войти</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="promo-badge">2 месяца бесплатно</div>
+            <h1>Мы — ПрайсПорт</h1>
+            <p>Инструмент совместного маркетинга между интернет-магазинами<br>со схожей целевой аудиторией</p>
+            <a href="#contact" class="cta-button">Попробовать</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Наши возможности</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Мотивируем на оплату</h3>
+                    <p>Доводим 15% брошенных заказов до оплаты через ценный подарок для клиента. Увеличиваем конверсию вашего интернет-магазина.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Передаем целевые лиды</h3>
+                    <p>Мы передаем вам клиентов, которые недавно купили товар, близкий к вашему, повышая конверсию по этим лидам в 3 раза.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Возвращаем клиентов</h3>
+                    <p>Встраиваем предложение подарка в ваши сообщения клиентам через любые каналы связи: email, мессенджеры, соцсети.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Как конкретно это работает?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Автодожим до оплаты</h3>
+                    <p>Виджет ПрайсПорт автоматически открывает вашему клиенту подарок от партнеров, мотивирующий его на покупку</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Целевые лиды от партнеров</h3>
+                    <p>ПрайсПорт позволяет размещать специальные предложения на сайтах партнёров, которые продают смежные товары</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Возврат клиентов</h3>
+                    <p>ПрайсПорт встраивает предложение подарка в ваши сообщения клиентам через мессенджеры, соцсети и e-mail</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="results">
+        <div class="container">
+            <h2 class="section-title">Результат сотрудничества</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-number">15%</div>
+                    <div class="result-text">брошенных заказов дожимаются до оплаты</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">×3</div>
+                    <div class="result-text">увеличивается конверсия продаж</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">×2</div>
+                    <div class="result-text">уменьшается стоимость привлечения лида</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-number">↑</div>
+                    <div class="result-text">повышение лояльности клиентов</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="calculator">
+        <div class="container">
+            <h2 class="section-title">Рассчитайте дополнительную выручку</h2>
+            <p class="section-subtitle">Узнайте, сколько вы можете заработать с ПрайсПорт</p>
+            <div class="calculator-form">
+                <div class="form-group">
+                    <label for="avgCheck">Средний чек магазина (₽)</label>
+                    <input type="number" id="avgCheck" placeholder="50000" value="50000">
+                </div>
+                <div class="form-group">
+                    <label for="visitors">Посещаемость в месяц</label>
+                    <input type="number" id="visitors" placeholder="50000" value="50000">
+                </div>
+                <div class="form-group">
+                    <label for="orders">Оплат в месяц</label>
+                    <input type="number" id="orders" placeholder="245" value="245">
+                </div>
+                <div class="calculator-result" id="calculatorResult">
+                    <h3>Вы могли бы получить ещё</h3>
+                    <div class="result-number" id="monthlyRevenue">472 500 ₽</div>
+                    <div class="result-text">в месяц</div>
+                    <div class="big-number" id="yearlyRevenue">5 670 000 ₽</div>
+                    <div class="result-text">в год</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <div class="container">
+            <h2 class="section-title">Тарифы</h2>
+            <p class="section-subtitle">2 месяца все механики бесплатно</p>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Инструмент перевода заказов в оплату</h3>
+                    <div class="price">Бесплатно</div>
+                    <ul>
+                        <li>Через скидки в магазинах-партнёрах</li>
+                        <li>С похожей целевой аудиторией</li>
+                        <li>Автоматический дожим</li>
+                        <li>Аналитика результатов</li>
+                    </ul>
+                </div>
+                <div class="pricing-card">
+                    <h3>Оплата целевых лидов</h3>
+                    <div class="price">25 ₽<span class="price-unit"> / лид</span></div>
+                    <div class="price">350 ₽<span class="price-unit"> / заказ</span></div>
+                    <ul>
+                        <li>Оплата каждого целевого лида</li>
+                        <li>Оплата лидов перешедших в заказ</li>
+                        <li>Детальная статистика</li>
+                        <li>Выбор партнеров</li>
+                    </ul>
+                </div>
+                <div class="pricing-card">
+                    <h3>Возврат клиентов</h3>
+                    <div class="price">20 000 ₽<span class="price-unit"> / месяц</span></div>
+                    <ul>
+                        <li>Подарки в коммуникации с клиентом</li>
+                        <li>Интеграция с мессенджерами</li>
+                        <li>Email-рассылки</li>
+                        <li>Социальные сети</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-form" id="contact">
+        <div class="container">
+            <h2 class="section-title">Простые шаги для начала работы</h2>
+            <p class="section-subtitle">Оставьте телефон и ссылку на сайт вашего магазина.<br>В течение 24 часов мы свяжемся с вами для подключения магазина к ПрайсПорт</p>
+            <div class="contact-form-container">
+                <form action="https://formspree.io/f/xdapwayg" method="POST" id="contactForm">
+                    <input type="tel" name="phone" id="phone" placeholder="Номер телефона *" required>
+                    <input type="url" name="website" id="website" placeholder="Ссылка на сайт магазина *" required>
+                    <textarea name="message" id="message" placeholder="Дополнительная информация (необязательно)"></textarea>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <label for="consent">Я согласен на обработку персональных данных</label>
+                    </div>
+                    <button type="submit" class="submit-button">Подключиться</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Часто задаваемые вопросы</h2>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Могу ли я сам выбрать, в каких именно магазинах размещать моё предложение?
+                </div>
+                <div class="faq-answer">
+                    Вы сами определяете перечень интернет-магазинов, на которых считаете нужным разместить ваше предложение. На основе наших данных о предпочтениях клиентов мы можем порекомендовать площадки, с которых вы получите больше всего лидов.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Могу ли я сам выбрать, скидки в каких именно магазинах давать в подарок за покупку у меня?
+                </div>
+                <div class="faq-answer">
+                    Вы сами определяете перечень бонусных предложений, которые будут доступны покупателю вашего магазина за выполнение заказа или оплаты у вас. На основе наших данных о предпочтениях клиентов мы можем порекомендовать бонусные предложения, которые будут мотивировать ваших клиентов произвести оплату на вашем сайте.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Помогаете ли вы встроить виджет ПрайсПорт на сайт интернет-магазина?
+                </div>
+                <div class="faq-answer">
+                    Да, наша команда разработки консультирует на каждом этапе встройки виджета на ваш сайт. Интеграция занимает несколько рабочих часов одного специалиста с вашей стороны и начинает приносить вашему сайту дополнительную выручку.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Сколько времени занимает встройка виджета ПрайсПорт на сайт?
+                </div>
+                <div class="faq-answer">
+                    Интеграция занимает несколько рабочих часов одного специалиста с вашей стороны и начинает приносить вашему сайту дополнительную выручку.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Как вы отслеживаете лиды, перешедшие в заказ?
+                </div>
+                <div class="faq-answer">
+                    Мы используем несколько методов: по уникальному промокоду, который вы закрепляете за нами; используя UTM-метку в ссылке, по которой клиент переходит из нашего сервиса на ваш сайт; по гостевому доступу в вашу Яндекс.Метрику.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="partners">
+        <div class="container">
+            <h2 class="section-title">Наши партнеры</h2>
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <h3>Unibell</h3>
+                    <p>IT-компания, предоставляющая голосовых роботов с ИИ, все системы верификации сотовых номеров и HLR</p>
+                    <a href="#" class="partner-link">Перейти на сайт</a>
+                </div>
+                <div class="partner-card">
+                    <h3>Dashamail</h3>
+                    <p>Российский сервис email-рассылок с продвинутыми инструментами автоматизации, ИИ для генерации картинок и тем для писем и модулем CDP.</p>
+                    <a href="#" class="partner-link">Перейти на сайт</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 ПрайсПорт. Все права защищены.</p>
+            <p><a href="#">Политика конфиденциальности</a> | <a href="#">Условия использования</a></p>
+        </div>
+    </footer>
+
+    <div class="scroll-to-top" id="scrollToTop">↑</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
